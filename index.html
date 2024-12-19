@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://b82b1763d1c3.eu-west-3.captcha-sdk.awswaf.com/b82b1763d1c3/jsapi.js" defer></script>
+    <title>Forbidden Sequence Generator</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        }
+        #output {
+        margin-top: 20px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generate Forbidden Sequence</h1>
+    <form id="numberForm">
+        <label for="number">Enter a number (1 to 1000): </label>
+        <input type="number" id="number" name="number" min="1" max="1000" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="output"></div>
+
+    <script>
+        document.getElementById('numberForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const numberInput = document.getElementById('number');
+        const N = parseInt(numberInput.value);
+
+        if (N < 1 || N > 1000) {
+            alert('Please enter a valid number between 1 and 1000.');
+            return;
+        }
+
+        const outputDiv = document.getElementById('output');
+        outputDiv.textContent = ''; // Clear previous output
+
+        document.getElementById('numberForm').style.display = 'none'; // Hide the form
+
+        for (let i = 1; i <= N; i++) {
+            try {
+                // Make the GET request
+                await fetch('https://api.prod.jcloudify.com/whoami');
+            } catch (error) {
+                console.error('Error fetching the API:', error);
+            }
+
+            // Append the result to the output
+            outputDiv.textContent += `${i}. Forbidden\n`;
+
+            // Wait for 1 second before continuing
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+        });
+    </script>
+</body>
+</html>
