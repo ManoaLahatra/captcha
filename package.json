@@ -1,4 +1,7 @@
 {
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  },
   "type": "module",
   "scripts": {
     "generate-config": "node generate-config.js",
